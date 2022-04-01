@@ -27,11 +27,19 @@ function App() {
     setData(newExerciseList);
   }
 
+  const onEdit = (targetId, newContent) => {
+    setData(
+      data.map((it)=> 
+        it.id === targetId ? {...it, content:newContent}: it)
+    )
+
+  }
+
   return (
     <div className="App">
       <h2>record</h2>
       <ExerciseEdit onCreate = {onCreate} />
-      <ExerciseList onDelete = {onDelete} exerciseList={data} />
+      <ExerciseList onEdit={onEdit} onDelete = {onDelete} exerciseList={data} />
     </div>
   );
 }

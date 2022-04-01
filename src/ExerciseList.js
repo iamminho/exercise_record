@@ -1,7 +1,7 @@
 import ExerciseItem from './ExerciseItem'
 
 
-const ExerciseList = ({ onDelete, exerciseList }) => {
+const ExerciseList = ({ onEdit, onDelete, exerciseList }) => {
     return ( 
         <div className='ExerciseList'>
             <h2> Record List </h2>
@@ -11,6 +11,7 @@ const ExerciseList = ({ onDelete, exerciseList }) => {
                     <ExerciseItem 
                         key={it.id} {...it} 
                         onDelete={onDelete}
+                        onEdit={onEdit}
                     />
                     
                 ))}
