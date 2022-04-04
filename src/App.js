@@ -2,7 +2,7 @@ import {useRef, useState} from "react";
 import './App.css';
 import ExerciseEdit from './ExerciseEdit';
 import ExerciseList from './ExerciseList';
-
+import LifeCycle from './LifeCyle';
 function App() {
 
   const [data,setData] = useState([]);
@@ -37,6 +37,7 @@ function App() {
 
   return (
     <div className="App">
+      <LifeCycle />
       <h2>record</h2>
       <ExerciseEdit onCreate = {onCreate} />
       <ExerciseList onEdit={onEdit} onDelete = {onDelete} exerciseList={data} />
