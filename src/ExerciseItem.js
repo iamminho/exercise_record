@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -15,6 +15,8 @@ const ExerciseItem = ({
     created_date,
     id
 }) => {
+
+    useEffect(() => {console.log(`${id} mount!`)});
 
     const [isEdit, setIsEdit] = useState(false);
     const toggleIsEdit = () => { setIsEdit(!isEdit) }
@@ -120,4 +122,4 @@ const ExerciseItem = ({
         </Container>
     );
 }
-export default ExerciseItem;
+export default React.memo(ExerciseItem);

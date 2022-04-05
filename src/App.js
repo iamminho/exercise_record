@@ -1,15 +1,16 @@
-import {useRef, useState} from "react";
+import {useEffect, useCallback, useRef, useState} from "react";
 import './App.css';
 import ExerciseEdit from './ExerciseEdit';
 import ExerciseList from './ExerciseList';
 import LifeCycle from './LifeCyle';
+
 function App() {
 
   const [data,setData] = useState([]);
 
   const dataId = useRef(0);
 
-  const onCreate = (author,content) => {
+  const onCreate = useCallback((author,content) => {
     const created_date = new Date().getTime();
     const newItem = {
       author,
@@ -18,22 +19,21 @@ function App() {
       id : dataId.current
     }
     dataId.current += 1;
-    setData([newItem, ...data])
-  }
+    setData((data) => [newItem, ...data])
+  }, [] );
 
-  const onDelete = (targetId) => {
-    console.log(`${targetId}가 삭제되었습니다.` )
-    const newExerciseList = data.filter((it)=>it.id !== targetId)
-    setData(newExerciseList);
-  }
+  const onDelete = useCallback((targetId) => {
+    console.log(`${targetId}가 삭제되었습니다.`);
+    setData((data) => data.filter((it) => it.id !== targetId));
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
-      data.map((it)=> 
-        it.id === targetId ? {...it, content:newContent}: it)
-    )
-
-  }
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
+      data.map((it) =>
+        it.id === targetId ? { ...it, content: newContent } : it
+      )
+    );
+  }, []);
 
   return (
     <div className="App">
