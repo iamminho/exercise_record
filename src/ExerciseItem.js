@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
@@ -6,10 +6,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Container } from '@mui/material';
+import { ExerciseDispatchContext } from './App';
 
-const ExerciseItem = ({
-    onEdit,
-    onDelete,
+const ExerciseItem = ({    
     author,
     content,
     created_date,
@@ -17,6 +16,8 @@ const ExerciseItem = ({
 }) => {
 
     useEffect(() => {console.log(`${id} mount!`)});
+
+    const {onDelete, onEdit} = useContext(ExerciseDispatchContext)
 
     const [isEdit, setIsEdit] = useState(false);
     const toggleIsEdit = () => { setIsEdit(!isEdit) }

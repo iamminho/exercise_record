@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Container, Typography } from "@material-ui/core";
+import { ExerciseDispatchContext } from './App';
 
-const ExerciseEdit = ({onCreate}) => {
+const ExerciseEdit = () => {
+
+    const {onCreate} = useContext(ExerciseDispatchContext); 
 
     useEffect(()=> {console.log("ExerciseEdit uploading!")})
     
@@ -45,8 +48,7 @@ const ExerciseEdit = ({onCreate}) => {
     
         if (state.author.length >= 1 && state.content.length >= 5) {          
           onCreate(state.author, state.content)
-          alert("저장이 완료되었습니다.");     
-          console.log(state);     
+          alert("저장이 완료되었습니다.");               
         }
         
       };

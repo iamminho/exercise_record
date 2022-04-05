@@ -1,4 +1,4 @@
-import {useEffect, useCallback, useRef, useReducer} from "react";
+import React, {useMemo, useEffect, useCallback, useRef, useReducer} from "react";
 import './App.css';
 import ExerciseEdit from './ExerciseEdit';
 import ExerciseList from './ExerciseList';
@@ -29,6 +29,10 @@ const reducer = (state, action) => {
   }
 };
 
+export const ExerciseStateContext = React.createContext();
+
+export const ExerciseDispatchContext = React.createContext();
+
 function App() {
 
   const [data, dispatch] = useReducer(reducer, []);
@@ -52,13 +56,21 @@ function App() {
     dispatch({ type: "EDIT", targetId, newContent });
   }, []);
 
+  const memoizedDispatches = useMemo(()=>{
+    return {onCreate, onDelete, onEdit}
+  }, [])
+
   return (
-    <div className="App">
-      <LifeCycle />
-      <h2>record</h2>
-      <ExerciseEdit onCreate = {onCreate} />
-      <ExerciseList onEdit={onEdit} onDelete = {onDelete} exerciseList={data} />
-    </div>
+    <ExerciseStateContext.Provider value = {data}>
+      <ExerciseDispatchContext.Provider value = {memoizedDispatches}>
+        <div className="App">
+          <LifeCycle />
+          <h2>record</h2>
+          <ExerciseEdit onCreate={onCreate} />
+          <ExerciseList onEdit={onEdit} onDelete={onDelete} />
+        </div>
+      </ExerciseDispatchContext.Provider>
+    </ExerciseStateContext.Provider>
   );
 }
 
